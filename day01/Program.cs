@@ -19,3 +19,10 @@ long sumElf(string[] sums)
 long maxSum = elves.Select(x => sumElf(x.Split("\n"))).Max();
 
 Console.WriteLine(maxSum);
+
+var allCals = elves.Select(x => sumElf(x.Split("\n"))).ToList();
+allCals.Sort();
+
+var max3 = allCals.Skip(allCals.Count - 3).Sum();
+
+Console.WriteLine(max3);
