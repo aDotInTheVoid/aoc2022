@@ -23,7 +23,7 @@
     :z :scissors))
 
 (defn parse-line [s]
-  (mapv sym->move (mapv parse-char (str/split s #" "))))
+  (mapv parse-char (str/split s #" ")))
 
 (defn parse-lines [s]
   (mapv parse-line s))
@@ -58,16 +58,18 @@
       (str/split #"\n")
       parse-lines))
 
-(defn round-score [theirs mine]
-  (+ (winner->score (winner mine theirs))
-     (move->score mine)))
+(defn round-score-q1 [their-sym mine-sym]
+  (let [their (sym->move their-sym)
+        mine (sym->move mine-sym)]
+    (+ (winner->score (winner mine their))
+       (move->score mine))))
 
-(defn score-rounds [rounds]
-  (mapv #(apply round-score %) rounds))
+(defn score-rounds-q1 [rounds]
+  (mapv #(apply round-score-q1 %) rounds))
 
 (defn q1 []
   (->> (get-input)
-       score-rounds
+       score-rounds-q1
        (reduce +)))
 
 
