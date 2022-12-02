@@ -46,6 +46,24 @@
     [:paper :scissors] :lose
     [:rock :paper] :lose))
 
+(defn sym->winner [s]
+  (case s
+    :x :lose
+    :y :tie
+    :z :win))
+
+(defn correct-move [theirs happen]
+  (case [theirs happen]
+    [:rock :win] :paper
+    [:rock :lose] :scissors
+    [:rock :tie] :rock
+    [:paper :win] :scissors
+    [:paper :lose] :rock
+    [:paper :tie] :paper
+    [:scissors :win] :rock
+    [:scissors :lose] :paper
+    [:scissors :tie] :scissors))
+
 (defn winner->score [w]
   (case w
     :lose 0
@@ -67,13 +85,29 @@
 (defn score-rounds-q1 [rounds]
   (mapv #(apply round-score-q1 %) rounds))
 
+(defn round-score-q2 [their-sym happen-sym]
+  (let
+   [their (sym->move their-sym)
+    mine (correct-move their (sym->winner happen-sym))]
+    (+ (winner->score (winner mine their))
+       (move->score mine))))
+
+(defn score-rounds-q2 [rounds]
+  (mapv #(apply round-score-q2 %) rounds))
+
 (defn q1 []
   (->> (get-input)
        score-rounds-q1
+       (reduce +)))
+
+(defn q2 []
+  (->> (get-input)
+       score-rounds-q2
        (reduce +)))
 
 
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (println "Q1: " (q1)))
+  (println "Q1: " (q1))
+  (println "Q2: " (q2)))

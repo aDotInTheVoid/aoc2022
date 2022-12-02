@@ -3,5 +3,5 @@
             [day02.core :refer :all]))
 
 (deftest correct
-  (testing "q1"
-    (is (= (q1) 12794))))
+  (is (= (q2) 14979))
+  (is (= (q1) 12794)))
