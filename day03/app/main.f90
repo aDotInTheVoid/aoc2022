@@ -2,11 +2,15 @@ program main
    ! use day03, only: say_hello
    use, intrinsic :: iso_fortran_env, only: input_unit, output_unit
    use stdlib_io, only: getline
+   use day03, only: q1_score
    implicit none
 
    character(len=:), allocatable :: line
    integer :: stat
    integer :: input_len
+   integer :: sum
+
+   sum = 0
 
    open(unit=1, file="input.txt")
 
@@ -16,10 +20,12 @@ program main
          exit
       end if
       input_len = LEN(line)
-      write(*,*) line
-      write(*,*) input_len
+      sum = sum + q1_score(line, input_len)
+
    end do
 
    close(unit=1)
+
+   write (*, *) sum
 
 end program main
