@@ -8,7 +8,7 @@ program main
    character(len=:), allocatable :: line
    integer :: stat
    integer :: input_len
-   integer :: sum
+   integer(kind=8) :: sum
 
    sum = 0
 
