@@ -35,7 +35,6 @@ contains
          if (bits /= 0) then
             result = result + i
          end if
-         write(*,*) "i: ", i, "pri_mask: ", pri_mask, "bits: ", bits, "result: ", result
       end do
    end function
 
@@ -57,7 +56,6 @@ contains
          pri = get_prio(c)
          pri_mask = 2 ** pri
          mask = IOR(mask, pri_mask)
-         write(*,*) "c: ", c, " mask: ", mask, " pri: ", pri, " pri_mask: ", pri_mask
       end do
 
    end function

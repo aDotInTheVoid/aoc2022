@@ -38,7 +38,6 @@ program main
       mask3 = build_mask(line)
 
       q2_sum = q2_sum + mask_score(IAND(mask1, IAND(mask2, mask3)))
-      write(*,*) "mask1: ", mask1, " mask2: ", mask2, " mask3: ", mask3, "q2_sum: ", q2_sum
    end do
    close(unit=2)
 
