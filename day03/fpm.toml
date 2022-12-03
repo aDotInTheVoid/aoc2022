@@ -10,3 +10,5 @@ auto-tests = true
 auto-examples = true
 [install]
 library = false
+[dependencies]
+stdlib = { git="https://github.com/fortran-lang/stdlib", rev="f27f635f27aee3da45e4c67e46acf4b6dd7a44ba" }
