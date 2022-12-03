@@ -1,8 +1,7 @@
 module day03
    implicit none
-   private :: build_mask
-   private :: get_prio
-
+   public :: build_mask
+   public :: mask_score
    public :: q1_score
 contains
 
@@ -18,17 +17,7 @@ contains
       h1mask = build_mask(line(1:len/2))
       h2mask = build_mask(line(len/2 + 1 :))
       intr_mask = IAND(h1mask, h2mask)
-
-      write (*,*) "l1: ", line(1:len/2)
-      write (*,*) "l2: ", line(len/2 + 1 :)
-      write (*,*) "h1: ", h1mask
-      write (*,*) "h2: ", h2mask
-      write (*,*) "intr: ", intr_mask
-
       score = mask_score(intr_mask)
-
-      write (*,*) "score: ", score
-      write(*,*) ""
    end function
 
    function mask_score(mask) result(result)
@@ -46,7 +35,7 @@ contains
          if (bits /= 0) then
             result = result + i
          end if
-         ! write(*,*) "i: ", i, "pri_mask: ", pri_mask, "bits: ", bits, "result: ", result
+         write(*,*) "i: ", i, "pri_mask: ", pri_mask, "bits: ", bits, "result: ", result
       end do
    end function
 
