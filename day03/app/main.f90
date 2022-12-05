@@ -1,13 +1,10 @@
 program main
-   ! use day03, only: say_hello
-   use, intrinsic :: iso_fortran_env, only: input_unit, output_unit
    use stdlib_io, only: getline
-   use day03, only: q1_score, build_mask, mask_score
+   use day03, only: build_mask, mask_score
    implicit none
 
    character(len=:), allocatable :: line
    integer :: stat
-   integer :: input_len
    integer(kind=8) :: q1_sum, q2_sum
    integer(kind=8) :: mask1, mask2, mask3
 
@@ -20,8 +17,7 @@ program main
       if (stat /= 0) then
          exit
       end if
-      input_len = LEN(line)
-      q1_sum = q1_sum + q1_score(line, input_len)
+      q1_sum = q1_sum + q1_score(line)
    end do
    close(unit=1)
 
@@ -43,5 +39,23 @@ program main
 
    write (*, *) "Q1: ", q1_sum
    write (*, *) "Q2: ", q2_sum
+
+contains
+   function q1_score(l) result(score)
+      character(len=*), intent(in) :: l
+      integer(kind=8) :: score
+      integer :: ln
+
+      integer(kind=8) :: h1mask
+      integer(kind=8) :: h2mask
+      integer(kind=8) :: intr_mask
+
+      ln = LEN(l)
+
+      h1mask = build_mask(l(1:ln/2))
+      h2mask = build_mask(l(ln/2 + 1 :))
+      intr_mask = IAND(h1mask, h2mask)
+      score = mask_score(intr_mask)
+   end function
 
 end program main
