@@ -1,6 +1,7 @@
 input <- readLines("input.txt")
 
 sc1 <- 0
+sc2 <- 0
 
 for (i in 1:length(input)) {
     intervals <- strsplit(input[i], ",")[[1]] 
@@ -18,6 +19,11 @@ for (i in 1:length(input)) {
     } else if (i2_lo <= i1_lo && i2_hi >= i1_hi) {
         sc1 <- sc1 + 1
     }
+
+    if (i1_lo <= i2_hi && i2_lo <= i1_hi) {
+        sc2 <- sc2 + 1
+    }
 }
 
 print(sc1) # 573
+print(sc2) # 867
