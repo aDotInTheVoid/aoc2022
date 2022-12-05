@@ -1,3 +1,5 @@
 FROM registry.gitlab.com/everythingfunctional/dockerfpm
+WORKDIR /app
 COPY . .
-CMD ["fpm", "run"]
+RUN fpm install --prefix=/app
+CMD ["/app/bin/day03"]
