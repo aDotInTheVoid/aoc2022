@@ -6,7 +6,7 @@ BEGIN {
 
 /^$/ {
 	FS=" ";
-	print_grid(grid1);
+	print_grid(grid2);
 }
 
 function push(A,B) { A[length(A)+1] = B }
@@ -23,19 +23,21 @@ function print_grid(g) {
 	n_blocks = (length($1)+1)/4;
 	if (bline == 1){
 		while (bline < 100) {
-			for (i=1;i<=n_blocks;i++)
+			for (i=1;i<=n_blocks;i++) {
 				grid1[bline][i] = " ";
+				grid2[bline][i] = " ";
+			}
 			bline++;
 		}
 	}
 
 	for (i = 1; i <= n_blocks; i++) {
-		grid1[bline][i] = substr($1, i*4 - 2, 1);
+		c = substr($1, i*4 - 2, 1);
+		grid1[bline][i] = c;
+		grid2[bline][i] = c;
 	}
 	bline++;
 }
-
-
 
 function move1(g, from, to) {
 	for (bl in g) {
@@ -55,9 +57,26 @@ function move1(g, from, to) {
 		}
 	}
 
-	print "bl=",bl;
-	print "Moving", c, "to", (bl-1), ";"
 	g[bl+off][to]=c;
+}
+
+function move2(g, from, to, n) {
+	off = -1;
+	for (to_i in g) {
+		c = g[to_i][to];
+		#print "to_i = ", to_i, " - ", c, length(c); 
+		if (c ~ /[A-Z]/) {off=0;break;}
+	}
+	to_i -= n+off;
+	for (from_i in g) {
+		#print "from_i = ", from_i, " - ", g[from_i][from];
+		if (g[from_i][from] ~ /[A-Z]/) break;
+	}
+	# print "n = ", n;
+	for (i = 0; i<n; i++) {
+		g[to_i+i][to] = g[from_i+i][from];
+		g[from_i+i][from] = " ";
+	}
 	print_grid(g);
 }
 
@@ -72,10 +91,12 @@ function move1(g, from, to) {
 	for (i2 = 1; i2 <= move; i2++) {
 		move1(grid1, from, to);
 	}
-	print "\n\n";
+	move2(grid2, from, to, move);
+}
 
-
-    q1 = "";
+END {
+	q1 = "";
+	q2 = "";
 	for (i=1;i<=n_blocks;i++) {
 		for (bl in grid1) {
 			c = grid1[bl][i];
@@ -84,7 +105,14 @@ function move1(g, from, to) {
 				break;
 			}
 		}
+		for (bl in grid2) {
+			c = grid2[bl][i];
+			if (c ~ /[A-Z]/) {
+				q2 = q2 c;
+				break;
+			}
+		}
 	}
 	print "q1=", q1; # BWNCQRMDB
-
+	print "q2=", q2; # NHWZCBNBF
 }
