@@ -1,6 +1,13 @@
 # Install 
 
     sudo apt install gfortran
-    # install fpm
+
+Install FPM Manually
+
+# Setup
+
     fpm new day03
+
+# Run
+
     fpm run
