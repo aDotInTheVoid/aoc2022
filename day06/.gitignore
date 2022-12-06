@@ -1,3 +1,5 @@
 *.s
 *.o
-solve
+solve_q1
+solve_q2
+*opt*

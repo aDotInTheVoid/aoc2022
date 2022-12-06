@@ -1,11 +1,18 @@
-all: solve
+MAKEFLAGS += --no-builtin-rules
 
-solve: solve.o
-	clang -no-pie solve.o -o solve     
-solve.o: solve.ll
-	llc -filetype=obj solve.ll
+all: solve_q1
 
+%: %.o
+	clang -no-pie $< -o $@     
+%.o: %.ll
+	llc -filetype=obj $< -o $@
+
+%.s: %.ll
+	llc -filetype=asm $< -o $@
+
+%_opt.ll: %.ll
+	opt -passes='default<O3>' -S $< -o $@
 
 .PHONY: clean
 clean:
-	rm -f solve solve.o solve.s
+	rm -f solve solve.o solve.s *opt*
