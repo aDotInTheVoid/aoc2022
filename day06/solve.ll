@@ -1,6 +1,6 @@
 @.inputtxt = private constant [10 x i8] c"input.txt\00"
 @.r = private constant [2 x i8] c"r\00"
-@.printf_solved = private unnamed_addr constant [9 x i8] c"Q%d: %d\0A\00"
+@.printf_solved = private constant [9 x i8] c"Q%d: %d\0A\00"
 
 declare ptr @fopen(ptr, ptr)
 declare i32 @fgetc(ptr)
@@ -9,8 +9,7 @@ declare i32 @fclose(ptr)
 declare i32 @putchar(i32)
 declare void @abort()
 
-
-define i1 @all_different(ptr %chars, i32 %len) {
+define private i1 @all_different(ptr %chars, i32 %len) {
     entry:
     br label %l1_head
 
@@ -41,7 +40,7 @@ l1_end_found:
     ret i1 0
 }
 
-define void @add_new(ptr %vals, i32 %len, i32 %new) {
+define private void @add_new(ptr %vals, i32 %len, i32 %new) {
 entry:
     br label %l1_head
 
@@ -66,7 +65,7 @@ l1_end:
     ret void
 }
 
-define void @solve(i32 %qno, i32 %nsame) {
+define private void @solve(i32 %qno, i32 %nsame) alwaysinline {
 entry:
     %nsame64 = zext i32 %nsame to i64
     %nums = alloca i32, i64 %nsame64
