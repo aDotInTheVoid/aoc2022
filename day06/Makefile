@@ -5,7 +5,7 @@ all: solve_q1
 %: %.o
 	clang -no-pie $< -o $@     
 %.o: %.ll
-	llc -filetype=obj $< -o $@
+	llc -filetype=obj -O0 --debugify-level=location+variables    $< -o $@
 
 %.s: %.ll
 	llc -filetype=asm $< -o $@
@@ -15,4 +15,4 @@ all: solve_q1
 
 .PHONY: clean
 clean:
-	rm -f solve solve.o solve.s *opt*
+	rm -f solve_q1 solve_q2 *.o *.s *opt*
