@@ -1,6 +1,6 @@
 MAKEFLAGS += --no-builtin-rules
 
-all: solve_q1
+all: solve
 
 %: %.o
 	clang -no-pie $< -o $@     

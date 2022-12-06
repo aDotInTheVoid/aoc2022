@@ -2,4 +2,5 @@
 *.o
 solve_q1
 solve_q2
+solve
 *opt*
