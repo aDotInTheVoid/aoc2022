@@ -112,8 +112,8 @@ fail:
     unreachable
 }
 
-define void @main() {
+define i32 @main() {
     call void @solve(i32 1, i32 4)
     call void @solve(i32 2, i32 14)
-    ret void
+    ret i32 0
 }
