@@ -1,0 +1,9 @@
+mkfs.bash
+tmp
+*.txt
+!input.txt
+
+# gt
+# 8381165
+# wrong
+# 8509877
